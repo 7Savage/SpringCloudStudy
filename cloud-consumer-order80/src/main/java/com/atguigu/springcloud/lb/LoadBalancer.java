@@ -1,6 +1,6 @@
 package com.atguigu.springcloud.lb;
 
-import org.springframework.cloud.client.ServiceInstance;
+//import org.springframework.cloud.client.ServiceInstance;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface LoadBalancer {
      *
      * @param serviceInstances
      * @return
-     */
-    ServiceInstance instances(List<ServiceInstance> serviceInstances);
+//     */
+//    ServiceInstance instances(List<ServiceInstance> serviceInstances);
 }
