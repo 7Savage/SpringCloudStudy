@@ -5,8 +5,8 @@ import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.lb.LoadBalancer;
 import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.COMM_FAILURE;
-//import org.springframework.cloud.client.ServiceInstance;
-//import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,10 +36,10 @@ public class OrderController {
     /**
      * 自定义负载均衡规则
      */
-//    @Resource
-//    private LoadBalancer loadBalancer;
-//    @Resource
-//    private DiscoveryClient discoveryClient;
+    @Resource
+    private LoadBalancer loadBalancer;
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     /**
      * http://localhost/consumer/payment/create?serial=atguigu002
@@ -69,14 +69,14 @@ public class OrderController {
      * @param id
      * @return
      */
-//    @GetMapping("/consumer/payment/getForEntity/{id}")
-//    public CommonResult<Payment> getPayment2(@PathVariable("id") Long id) {
-//        ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/get/" + id, CommonResult.class);
-//        if (entity.getStatusCode().is2xxSuccessful()) {
-//            return entity.getBody();
-//        }
-//        return new CommonResult<>(444, "操作失败");
-//    }
+    @GetMapping("/consumer/payment/getForEntity/{id}")
+    public CommonResult<Payment> getPayment2(@PathVariable("id") Long id) {
+        ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/get/" + id, CommonResult.class);
+        if (entity.getStatusCode().is2xxSuccessful()) {
+            return entity.getBody();
+        }
+        return new CommonResult<>(444, "操作失败");
+    }
 
     /**
      * 路由规则: 轮询
@@ -84,16 +84,16 @@ public class OrderController {
      *
      * @return
      */
-//    @GetMapping(value = "/consumer/payment/lb")
-//    public String getPaymentLB() {
-//        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-//        if (instances == null || instances.size() <= 0) {
-//            return null;
-//        }
-//        ServiceInstance serviceInstance = loadBalancer.instances(instances);
-//        URI uri = serviceInstance.getUri();
-//        return restTemplate.getForObject(uri + "/payment/lb", String.class);
-//    }
+    @GetMapping(value = "/consumer/payment/lb")
+    public String getPaymentLB() {
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        if (instances == null || instances.size() <= 0) {
+            return null;
+        }
+        ServiceInstance serviceInstance = loadBalancer.instances(instances);
+        URI uri = serviceInstance.getUri();
+        return restTemplate.getForObject(uri + "/payment/lb", String.class);
+    }
 
     /**
      * 链路跟踪 zipkin+sleuth

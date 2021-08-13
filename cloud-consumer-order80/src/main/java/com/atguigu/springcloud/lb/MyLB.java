@@ -1,6 +1,6 @@
 package com.atguigu.springcloud.lb;
 
-//import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author zzyy
  * @date 2020/3/6 16:05
  **/
-//@Component
+@Component
 public class MyLB implements LoadBalancer {
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
@@ -35,9 +35,9 @@ public class MyLB implements LoadBalancer {
      * @param serviceInstances
      * @return
      */
-//    @Override
-//    public ServiceInstance instances(List<ServiceInstance> serviceInstances) {
-//        int index = getAndIncrement() % serviceInstances.size();
-//        return serviceInstances.get(index);
-//    }
+    @Override
+    public ServiceInstance instances(List<ServiceInstance> serviceInstances) {
+        int index = getAndIncrement() % serviceInstances.size();
+        return serviceInstances.get(index);
+    }
 }
