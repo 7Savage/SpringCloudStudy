@@ -24,6 +24,7 @@ public class RateLimitController {
         return new CommonResult(200, "按资源名称限流测试OK", new Payment(2020L, IdUtil.simpleUUID()));
     }
 
+    //兜底方法
     public CommonResult handleException(BlockException blockException){
         return new CommonResult<>(444, blockException.getClass().getCanonicalName()+"\t服务不可用" );
     }

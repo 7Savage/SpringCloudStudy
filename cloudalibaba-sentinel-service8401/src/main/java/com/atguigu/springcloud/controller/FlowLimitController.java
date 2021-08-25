@@ -64,10 +64,11 @@ public class FlowLimitController {
     @SentinelResource(value = "testHotKey", blockHandler = "dealTestHotKey")
     public String testHotKey(@RequestParam(value = "p1", required = false) String p1,
                              @RequestParam(value = "p2", required = false) String p2){
-        int age = 10 /0;
+        //int age = 10 /0;
         return "testHotKey -----";
     }
 
+    //兜底方法
     public String dealTestHotKey(String p1, String p2, BlockException blockException){
         return "dealTestHotKey---------";
     }

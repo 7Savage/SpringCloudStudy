@@ -101,9 +101,9 @@ public class OrderController {
      *
      * @return
      */
-//    @GetMapping("/consumer/payment/zipkin")
-//    public String paymentZipkin() {
-//        return restTemplate.getForObject("http://localhost:8081/payment/zipkin/", String.class);
-//    }
+    @GetMapping("/consumer/payment/zipkin")
+    public String paymentZipkin() {
+        return restTemplate.getForObject("http://CLOUD-PAYMENT-SERVICE:8001/payment/zipkin/", String.class);
+    }
 
 }
